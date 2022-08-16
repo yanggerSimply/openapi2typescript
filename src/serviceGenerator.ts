@@ -62,6 +62,7 @@ const resolveTypeName = (typeName: string) => {
 
   // 当model名称是number开头的时候，ts会报错。这种场景一般发生在后端定义的名称是中文
   if (name === '_' || /^\d$/.test(name)) {
+    console.log('origin typeLastName -> \t', typeName);
     Log('⚠️  models不能以number开头，原因可能是Model定义名称为中文, 建议联系后台修改');
     return `Pinyin_${name}`
   }
@@ -906,7 +907,7 @@ class ServiceGenerator {
       ?.replace(pathBasePrefix, '')
       .split('/')
       .map((str) => {
-        /** 
+        /**
          * 兼容错误命名如 /user/:id/:name
          * 因为是typeName，所以直接进行转换
          * */
